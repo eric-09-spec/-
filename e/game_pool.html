@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四大游戏矿池 - 工e健康资产</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D72B2B',
+                        secondary: '#F5F5F5',
+                        'icbc-gray': '#666666',
+                        'icbc-light-gray': '#E5E5E5',
+                        'icbc-dark-red': '#B80000',
+                        'icbc-gold': '#D4AF37'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            }
+            .transition-custom {
+                transition: all 0.3s ease;
+            }
+            .card-hover {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            }
+            .animate-pulse-slow {
+                animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0px); }
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30' fill='none'%3E%3Crect width='100' height='30' fill='%23D72B2B'/%3E%3Ctext x='10' y='20' font-family='Arial' font-size='14' font-weight='bold' fill='white'%3E中国工商银行%3C/text%3E%3C/svg%3E" alt="工商银行logo" class="h-8">
+                <h1 class="text-xl font-bold text-primary">工e健康资产</h1>
+            </div>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-icbc-gray font-medium transition-custom hover:text-primary">首页</a>
+                <a href="health_balance.html" class="text-icbc-gray font-medium transition-custom hover:text-primary">健康资产负债表</a>
+                <a href="game_pool.html" class="text-primary font-medium transition-custom hover:text-icbc-dark-red">游戏矿池</a>
+                <a href="career.html" class="text-icbc-gray font-medium transition-custom hover:text-primary">投资人职业生涯</a>
+                <a href="#" class="bg-primary text-white px-5 py-2 rounded-full transition-custom hover:bg-icbc-dark-red">登录/注册</a>
+            </nav>
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-primary text-xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 (默认隐藏) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-2">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30' fill='none'%3E%3Crect width='100' height='30' fill='%23D72B2B'/%3E%3Ctext x='10' y='20' font-family='Arial' font-size='14' font-weight='bold' fill='white'%3E中国工商银行%3C/text%3E%3C/svg%3E" alt="工商银行logo" class="h-8">
+                    <h2 class="text-xl font-bold text-primary">工e健康资产</h2>
+                </div>
+                <button id="close-menu" class="text-icbc-gray text-xl">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html" class="text-icbc-gray font-medium py-2 border-b border-icbc-light-gray">首页</a>
+                <a href="health_balance.html" class="text-icbc-gray font-medium py-2 border-b border-icbc-light-gray">健康资产负债表</a>
+                <a href="game_pool.html" class="text-primary font-medium py-2 border-b border-icbc-light-gray">游戏矿池</a>
+                <a href="career.html" class="text-icbc-gray font-medium py-2 border-b border-icbc-light-gray">投资人职业生涯</a>
+                <a href="#" class="bg-primary text-white px-5 py-3 rounded-full text-center mt-6">登录/注册</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- 页面标题 -->
+    <section class="pt-28 pb-8 bg-gradient-to-br from-primary/10 to-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-icbc-gray mb-2">四大游戏矿池</h1>
+                    <p class="text-icbc-gray">将健康行为转化为可消费的数字资产——活力币</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center bg-white px-6 py-3 rounded-full shadow-md">
+                    <div class="w-10 h-10 bg-icbc-gold/20 rounded-full flex items-center justify-center mr-3">
+                        <i class="fa fa-coins text-icbc-gold text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-icbc-gray">活力币余额</p>
+                        <p class="text-xl font-bold text-icbc-gold">12,345</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活力币介绍 -->
+    <section class="py-10 bg-secondary">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3">
+                    <div class="p-6 border-b lg:border-b-0 lg:border-r border-icbc-light-gray flex flex-col items-center text-center">
+                        <div class="w-20 h-20 bg-icbc-gold/20 rounded-full flex items-center justify-center mb-4 animate-float">
+                            <i class="fa fa-coins text-icbc-gold text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-icbc-gray mb-2">什么是活力币？</h3>
+                        <p class="text-icbc-gray">活力币是工e健康资产平台的专属数字资产，通过健康行为获得，可用于兑换丰富的健康服务和金融权益。</p>
+                    </div>
+                    <div class="p-6 border-b lg:border-b-0 lg:border-r border-icbc-light-gray flex flex-col items-center text-center">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa fa-plus-circle text-green-600 text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-icbc-gray mb-2">如何获取活力币？</h3>
+                        <p class="text-icbc-gray">通过四大游戏矿池（运动、睡眠、饮食、社交）的健康行为挖矿获得，行为越健康，获得的活力币越多。</p>
+                    </div>
+                    <div class="p-6 flex flex-col items-center text-center">
+                        <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+                            <i class="fa fa-exchange text-primary text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-icbc-gray mb-2">活力币有什么用？</h3>
+                        <p class="text-icbc-gray">可兑换健康服务、金融优惠、积分加速、专属产品折扣等多种权益，健康投入直接转化为实际价值。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 四大游戏矿池 -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-icbc-gray mb-4">探索四大游戏矿池</h2>
+                <p class="text-icbc-gray max-w-2xl mx-auto">通过健康行为"挖矿"，将抽象的健康投入转化为具体、即时、可消费的数字资产</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <!-- 基础矿池 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/800/400?random=10" alt="基础矿池" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-white flex items-center">
+                                    <i class="fa fa-coins mr-2"></i> 基础矿池
+                                </h3>
+                                <p class="text-white/80">每日微任务与连续打卡，稳定积累活力币</p>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-icbc-gold text-white px-4 py-2 rounded-full text-sm font-bold">
+                            推荐矿池
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-2">今日挖矿进度</h4>
+                            <div class="w-full bg-icbc-light-gray rounded-full h-4 mb-2">
+                                <div class="bg-primary h-4 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-icbc-gray">
+                                <span>已获得 75 活力币</span>
+                                <span>今日目标 100 活力币</span>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-4">挖矿规则</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-shoe-prints text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">每日微任务挖矿</p>
+                                        <p class="text-sm text-icbc-gray/70">完成步行、饮水等微任务，获得5-20活力币/任务</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-calendar-check-o text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">连续打卡奖励</p>
+                                        <p class="text-sm text-icbc-gray/70">第7天+50活力币，第14天+100活力币，第30天+300活力币</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-line-chart text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">复利加成机制</p>
+                                        <p class="text-sm text-icbc-gray/70">连续打卡30天后，所有奖励提升10%，象征零存整取</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-700 flex items-center">
+                                <i class="fa fa-info-circle mr-2"></i>
+                                适合：稳定型用户，追求养成健康习惯
+                            </p>
+                        </div>
+                        <button class="w-full py-3 bg-primary text-white rounded-lg hover:bg-icbc-dark-red transition-custom">
+                            开始挖矿
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 质押矿池 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/800/400?random=11" alt="质押矿池" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-white flex items-center">
+                                    <i class="fa fa-lock mr-2"></i> 质押矿池
+                                </h3>
+                                <p class="text-white/80">质押活力币挑战高难度目标，高风险高回报</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-2">今日挖矿进度</h4>
+                            <div class="w-full bg-icbc-light-gray rounded-full h-4 mb-2">
+                                <div class="bg-primary h-4 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-icbc-gray">
+                                <span>已获得 90 活力币</span>
+                                <span>今日目标 200 活力币</span>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-4">挖矿规则</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-money text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">活力币质押</p>
+                                        <p class="text-sm text-icbc-gray/70">质押100-5000活力币，挑战高难度健康目标</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-check-circle text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">成功奖励</p>
+                                        <p class="text-sm text-icbc-gray/70">完成挑战：返还质押+最高200%收益，象征高收益投资</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-times-circle text-red-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">未完成惩罚</p>
+                                        <p class="text-sm text-icbc-gray/70">未完成挑战：扣除部分质押活力币（最高50%）</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4 p-4 bg-orange-50 rounded-lg">
+                            <p class="text-sm text-orange-700 flex items-center">
+                                <i class="fa fa-info-circle mr-2"></i>
+                                适合：追求刺激、需要外部约束的用户
+                            </p>
+                        </div>
+                        <button class="w-full py-3 bg-primary text-white rounded-lg hover:bg-icbc-dark-red transition-custom">
+                            开始挖矿
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 联动矿池 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/800/400?random=12" alt="联动矿池" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-white flex items-center">
+                                    <i class="fa fa-users mr-2"></i> 联动矿池
+                                </h3>
+                                <p class="text-white/80">组队挖矿，按贡献瓜分奖励，社交互动获益</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-2">今日挖矿进度</h4>
+                            <div class="w-full bg-icbc-light-gray rounded-full h-4 mb-2">
+                                <div class="bg-primary h-4 rounded-full" style="width: 65%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-icbc-gray">
+                                <span>已获得 130 活力币</span>
+                                <span>今日目标 200 活力币</span>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-4">挖矿规则</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-users text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">团队组建</p>
+                                        <p class="text-sm text-icbc-gray/70">组建5-20人团队，共同完成健康挑战，象征团队投资</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-share-alt text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">按贡献分配</p>
+                                        <p class="text-sm text-icbc-gray/70">按个人贡献瓜分团队奖励，最高50%额外加成</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-user-plus text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">邀请奖励</p>
+                                        <p class="text-sm text-icbc-gray/70">邀请好友加入：获得好友挖矿收益的5%永久奖励</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4 p-4 bg-green-50 rounded-lg">
+                            <p class="text-sm text-green-700 flex items-center">
+                                <i class="fa fa-info-circle mr-2"></i>
+                                适合：喜爱社交、有从众心理的用户
+                            </p>
+                        </div>
+                        <button class="w-full py-3 bg-primary text-white rounded-lg hover:bg-icbc-dark-red transition-custom">
+                            开始挖矿
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 知识矿池 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/800/400?random=13" alt="知识矿池" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-white flex items-center">
+                                    <i class="fa fa-book mr-2"></i> 知识矿池
+                                </h3>
+                                <p class="text-white/80">学习健康知识、答题获得奖励，提升健商</p>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-bold">
+                            新矿池
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-2">今日挖矿进度</h4>
+                            <div class="w-full bg-icbc-light-gray rounded-full h-4 mb-2">
+                                <div class="bg-primary h-4 rounded-full" style="width: 55%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-icbc-gray">
+                                <span>已获得 55 活力币</span>
+                                <span>今日目标 100 活力币</span>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <h4 class="font-bold text-icbc-gray mb-4">挖矿规则</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-graduation-cap text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">健康知识学习</p>
+                                        <p class="text-sm text-icbc-gray/70">学习健康知识课程：10-50活力币/节，象征知识付费</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-question-circle text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">知识答题挑战</p>
+                                        <p class="text-sm text-icbc-gray/70">参与健康知识答题：5-20活力币/题（根据难度）</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="fa fa-trophy text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-icbc-gray">健商等级提升</p>
+                                        <p class="text-sm text-icbc-gray/70">获得"健商"等级提升：解锁高级矿池和专属奖励</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-4 p-4 bg-purple-50 rounded-lg">
+                            <p class="text-sm text-purple-700 flex items-center">
+                                <i class="fa fa-info-circle mr-2"></i>
+                                适合：理性、追求科学健康方法的用户
+                            </p>
+                        </div>
+                        <button class="w-full py-3 bg-primary text-white rounded-lg hover:bg-icbc-dark-red transition-custom">
+                            开始挖矿
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活力币商城 -->
+    <section class="py-16 bg-secondary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-icbc-gray mb-4">活力币商城</h2>
+                <p class="text-icbc-gray max-w-2xl mx-auto">用活力币兑换丰富的健康服务和金融权益</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 商品1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/400/200?random=20" alt="健康体检套餐" class="w-full h-40 object-cover">
+                        <div class="absolute top-2 left-2 bg-primary text-white px-3 py-1 rounded-full text-xs">
+                            热门
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-icbc-gray mb-2">标准健康体检套餐</h3>
+                        <p class="text-sm text-icbc-gray mb-4 line-clamp-2">包含全面体检项目，适合日常健康监测</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-coins text-icbc-gold mr-1"></i>
+                                <span class="font-bold text-icbc-gold">5,000</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-icbc-dark-red transition-custom">
+                                立即兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商品2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/400/200?random=21" alt="信用卡积分加速" class="w-full h-40 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-icbc-gray mb-2">信用卡积分加速7天</h3>
+                        <p class="text-sm text-icbc-gray mb-4 line-clamp-2">工行信用卡消费积分翻倍，提升积分累积速度</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-coins text-icbc-gold mr-1"></i>
+                                <span class="font-bold text-icbc-gold">1,200</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-icbc-dark-red transition-custom">
+                                立即兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商品3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/400/200?random=22" alt="健身会员" class="w-full h-40 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-icbc-gray mb-2">健身会员月卡</h3>
+                        <p class="text-sm text-icbc-gray mb-4 line-clamp-2">全国连锁健身品牌月卡，支持多家门店使用</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-coins text-icbc-gold mr-1"></i>
+                                <span class="font-bold text-icbc-gold">8,000</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-icbc-dark-red transition-custom">
+                                立即兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商品4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="https://picsum.photos/400/200?random=23" alt="健康咨询" class="w-full h-40 object-cover">
+                        <div class="absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs">
+                            新品
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-icbc-gray mb-2">专家健康咨询</h3>
+                        <p class="text-sm text-icbc-gray mb-4 line-clamp-2">一对一在线健康咨询服务，解答健康疑问</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-coins text-icbc-gold mr-1"></i>
+                                <span class="font-bold text-icbc-gold">2,500</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-icbc-dark-red transition-custom">
+                                立即兑换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-10">
+                <button class="px-8 py-3 border-2 border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-custom">
+                    查看更多商品
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white/80 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30' fill='none'%3E%3Crect width='100' height='30' fill='%23D72B2B'/%3E%3Ctext x='10' y='20' font-family='Arial' font-size='14' font-weight='bold' fill='white'%3E中国工商银行%3C/text%3E%3C/svg%3E" alt="工商银行logo" class="h-8 bg-white p-1 rounded">
+                        <h3 class="text-xl font-bold text-white">工e健康资产</h3>
+                    </div>
+                    <p class="mb-6">整合健康与金融，为您打造全方位的健康财富管理平台。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white/80 hover:text-white"><i class="fa fa-weibo"></i></a>
+                        <a href="#" class="text-white/80 hover:text-white"><i class="fa fa-wechat"></i></a>
+                        <a href="#" class="text-white/80 hover:text-white"><i class="fa fa-qq"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="hover:text-white">首页</a></li>
+                        <li><a href="health_balance.html" class="hover:text-white">健康资产负债表</a></li>
+                        <li><a href="game_pool.html" class="hover:text-white">游戏矿池</a></li>
+                        <li><a href="career.html" class="hover:text-white">投资人职业生涯</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">帮助中心</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-white">常见问题</a></li>
+                        <li><a href="#" class="hover:text-white">使用教程</a></li>
+                        <li><a href="#" class="hover:text-white">联系我们</a></li>
+                        <li><a href="#" class="hover:text-white">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">联系我们</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-phone mt-1 mr-3"></i>
+                            <span>400-8888-8888</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope mt-1 mr-3"></i>
+                            <span>service@icbc.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker mt-1 mr-3"></i>
+                            <span>北京市西城区复兴门内大街55号</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-8 text-center">
+                <p>© 2023 中国工商银行股份有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.querySelector('.fa-bars').parentElement;
+        const closeBtn = document.querySelector('#close-menu');
+        const mobileMenu = document.querySelector('#mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+    </script>
+</body>
+</html>

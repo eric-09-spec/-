@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资人职业生涯 - 工e健康资产</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D72B2B',
+                        secondary: '#F5F5F5',
+                        'icbc-gray': '#666666',
+                        'icbc-light-gray': '#E5E5E5',
+                        'icbc-dark-red': '#B80000',
+                        'icbc-gold': '#D4AF37'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            }
+            .transition-custom {
+                transition: all 0.3s ease;
+            }
+            .card-hover {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            }
+            .animate-progress {
+                animation: progress 1.5s ease-in-out;
+            }
+            @keyframes progress {
+                from { width: 0; }
+                to { width: var(--progress-width); }
+            }
+            .badge-glow {
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30' fill='none'%3E%3Crect width='100' height='30' fill='%23D72B2B'/%3E%3Ctext x='10' y='20' font-family='Arial' font-size='14' font-weight='bold' fill='white'%3E中国工商银行%3C/text%3E%3C/svg%3E" alt="工商银行logo" class="h-8">
+                <h1 class="text-xl font-bold text-primary">工e健康资产</h1>
+            </div>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-icbc-gray font-medium transition-custom hover:text-primary">首页</a>
+                <a href="health_balance.html" class="text-icbc-gray font-medium transition-custom hover:text-primary">健康资产负债表</a>
+                <a href="game_pool.html" class="text-icbc-gray font-medium transition-custom hover:text-primary">游戏矿池</a>
+                <a href="career.html" class="text-primary font-medium transition-custom hover:text-icbc-dark-red">投资人职业生涯</a>
+                <a href="#" class="bg-primary text-white px-5 py-2 rounded-full transition-custom hover:bg-icbc-dark-red">登录/注册</a>
+            </nav>
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-primary text-xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 (默认隐藏) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-2">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30' fill='none'%3E%3Crect width='100' height='30' fill='%23D72B2B'/%3E%3Ctext x='10' y='20' font-family='Arial' font-size='14' font-weight='bold' fill='white'%3E中国工商银行%3C/text%3E%3C/svg%3E" alt="工商银行logo" class="h-8">
+                    <h2 class="text-xl font-bold text-primary">工e健康资产</h2>
+                </div>
+                <button id="close-menu" class="text-icbc-gray text-xl">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html" class="text-icbc-gray font-medium py-2 border-b border-icbc-light-gray">首页</a>
+                <a href="health_balance.html" class="text-icbc-gray font-medium py-2 border-b border-icbc-light-gray">健康资产负债表</a>
+                <a href="game_pool.html" class="text-icbc-gray font-medium py-2 border-b border-icbc-light-gray">游戏矿池</a>
+                <a href="career.html" class="text-primary font-medium py-2 border-b border-icbc-light-gray">投资人职业生涯</a>
+                <a href="#" class="bg-primary text-white px-5 py-3 rounded-full text-center mt-6">登录/注册</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- 页面标题 -->
+    <section class="pt-28 pb-8 bg-gradient-to-br from-primary/10 to-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-3xl font-bold text-icbc-gray mb-2">投资人职业生涯</h1>
+                <p class="text-icbc-gray">通过角色扮演和社群竞争，提供长期沉浸感与归属感</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 当前职业等级展示 -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-16">
+                <div class="grid grid-cols-1 lg:grid-cols-3">
+                    <div class="p-6 border-b lg:border-b-0 lg:border-r border-icbc-light-gray flex flex-col items-center justify-center text-center">
+                        <div class="w-32 h-32 bg-primary/20 rounded-full flex items-center justify-center mb-6 relative">
+                            <img src="https://picsum.photos/100/100?random=30" alt="用户头像" class="w-28 h-28 rounded-full border-4 border-white">
+                            <div class="absolute -top-2 -right-2 bg-icbc-gold text-white w-10 h-10 rounded-full flex items-center justify-center font-bold badge-glow">
+                                2
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary mb-2">健康分析师</h3>
+                        <p class="text-icbc-gray mb-4">Lv.2</p>
+                        <div class="flex space-x-2 mb-6">
+                            <span class="px-3 py-1 bg-icbc-light-gray text-icbc-gray rounded-full text-sm">资深会员</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">活跃用户</span>
+                        </div>
+                    </div>
+                    <div class="p-6 border-b lg:border-b-0 lg:border-r border-icbc-light-gray">
+                        <h4 class="font-bold text-icbc-gray mb-4">等级进度</h4>
+                        <div class="mb-6">
+                            <div class="flex justify-between text-sm text-icbc-gray mb-1">
+                                <span>健康分析师 → 健康合伙人</span>
+                                <span>78%</span>
+                            </div>
+                            <div class="w-full bg-icbc-light-gray rounded-full h-4 mb-4">
+                                <div class="bg-primary h-4 rounded-full animate-progress" style="--progress-width: 78%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-icbc-gray">
+                                <span>当前经验值：4,680</span>
+                                <span>升级还需：1,320</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-secondary p-4 rounded-lg">
+                                <p class="text-sm text-icbc-gray mb-1">连续活跃</p>
+                                <p class="text-xl font-bold text-primary">42 天</p>
+                            </div>
+                            <div class="bg-secondary p-4 rounded-lg">
+                                <p class="text-sm text-icbc-gray mb-1">总活力币</p>
+                                <p class="text-xl font-bold text-icbc-gold">25,680</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-icbc-gray mb-4">本周任务</h4>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fa fa-check text-green-600"></i>
+                                    </div>
+                                    <span class="text-icbc-gray">完成3次运动挖矿</span>
+                                </div>
+                                <span class="text-green-600 font-medium">+150</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fa fa-check text-green-600"></i>
+                                    </div>
+                                    <span class="text-icbc-gray">每日睡眠超过7小时</span>
+                                </div>
+                                <span class="text-green-600 font-medium">+200</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fa fa-running text-primary"></i>
+                                    </div>
+                                    <span class="text-icbc-gray">连续步行10000步×3天</span>
+                                </div>
+                                <span class="text-primary font-medium">+300</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fa fa-users text-primary"></i>
+                                    </div>
+                                    <span class="text-icbc-gray">邀请1位好友注册</span>
+                                </div>
+                                <span class="text-primary font-medium">+500</span>
+                            </li>
+                        </ul>
+                        <button class="w-full mt-6 py-2 border border-primary text-primary rounded-lg hover:bg-primary/5 transition-custom">
+                            查看全部任务
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 职业晋升路径 -->
+            <div class="mb-16">
+                <h2 class="text-2xl font-bold text-icbc-gray mb-8 text-center">职业晋升路径</h2>
+                
+                <div class="relative">
+                    <!-- 连接线 -->
+                    <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-icbc-light-gray -ml-0.5"></div>
+                    
+                    <!-- 健康实习生 -->
+                    <div class="relative mb-12 md:mb-24">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                <div class="bg-secondary p-6 rounded-lg inline-block">
+                                    <h3 class="text-xl font-bold text-icbc-gray mb-2">健康实习生</h3>
+                                    <p class="text-icbc-gray mb-4">Lv.1 入门级</p>
+                                    <ul class="space-y-2">
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>注册并完成个人信息填写</span>
+                                            <i class="fa fa-check text-green-600"></i>
+                                        </li>
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>完成首次健康评估</span>
+                                            <i class="fa fa-check text-green-600"></i>
+                                        </li>
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>获得100活力币</span>
+                                            <i class="fa fa-check text-green-600"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="z-10 flex-shrink-0 order-1 md:order-2">
+                                <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                                    1
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 hidden md:block order-3"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 健康分析师 -->
+                    <div class="relative mb-12 md:mb-24">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 hidden md:block order-1"></div>
+                            <div class="z-10 flex-shrink-0 order-2">
+                                <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg border-4 border-white animate-pulse">
+                                    2
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                <div class="bg-secondary p-6 rounded-lg inline-block">
+                                    <h3 class="text-xl font-bold text-primary mb-2">健康分析师</h3>
+                                    <p class="text-icbc-gray mb-4">Lv.2 当前等级</p>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center text-icbc-gray">
+                                            <i class="fa fa-check text-green-600 mr-2"></i>
+                                            <span>连续活跃30天</span>
+                                        </li>
+                                        <li class="flex items-center text-icbc-gray">
+                                            <i class="fa fa-check text-green-600 mr-2"></i>
+                                            <span>累计获得5000活力币</span>
+                                        </li>
+                                        <li class="flex items-center text-icbc-gray">
+                                            <i class="fa fa-check text-green-600 mr-2"></i>
+                                            <span>完成10次健康行为记录</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 健康合伙人 -->
+                    <div class="relative mb-12 md:mb-24">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                <div class="bg-secondary p-6 rounded-lg inline-block">
+                                    <h3 class="text-xl font-bold text-icbc-gray mb-2">健康合伙人</h3>
+                                    <p class="text-icbc-gray mb-4">Lv.3 下一级</p>
+                                    <ul class="space-y-2">
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>连续活跃60天</span>
+                                            <i class="fa fa-clock-o text-yellow-600"></i>
+                                        </li>
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>累计获得15000活力币</span>
+                                            <i class="fa fa-clock-o text-yellow-600"></i>
+                                        </li>
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>邀请3位好友注册</span>
+                                            <i class="fa fa-clock-o text-yellow-600"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="z-10 flex-shrink-0 order-1 md:order-2">
+                                <div class="w-16 h-16 bg-icbc-gray text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                                    3
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 hidden md:block order-3"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 健康总监 -->
+                    <div class="relative mb-12 md:mb-24">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 hidden md:block order-1"></div>
+                            <div class="z-10 flex-shrink-0 order-2">
+                                <div class="w-16 h-16 bg-icbc-gray text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                                    4
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                <div class="bg-secondary p-6 rounded-lg inline-block">
+                                    <h3 class="text-xl font-bold text-icbc-gray mb-2">健康总监</h3>
+                                    <p class="text-icbc-gray mb-4">Lv.4 高级</p>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center text-icbc-gray">
+                                            <i class="fa fa-lock text-icbc-gray mr-2"></i>
+                                            <span>连续活跃180天</span>
+                                        </li>
+                                        <li class="flex items-center text-icbc-gray">
+                                            <i class="fa fa-lock text-icbc-gray mr-2"></i>
+                                            <span>累计获得50000活力币</span>
+                                        </li>
+                                        <li class="flex items-center text-icbc-gray">
+                                            <i class="fa fa-lock text-icbc-gray mr-2"></i>
+                                            <span>健康净资产达到200万</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 健康独角兽 -->
+                    <div class="relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                <div class="bg-secondary p-6 rounded-lg inline-block">
+                                    <h3 class="text-xl font-bold text-icbc-gray mb-2">健康独角兽</h3>
+                                    <p class="text-icbc-gray mb-4">Lv.5 顶级</p>
+                                    <ul class="space-y-2">
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>连续活跃365天</span>
+                                            <i class="fa fa-lock text-icbc-gray mr-2"></i>
+                                        </li>
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>累计获得200000活力币</span>
+                                            <i class="fa fa-lock text-icbc-gray mr-2"></i>
+                                        </li>
+                                        <li class="flex md:justify-end items-center text-icbc-gray md:space-x-reverse space-x-2">
+                                            <span>邀请20位好友注册</span>
+                                            <i class="fa fa-lock text-icbc-gray mr-2"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="z-10 flex-shrink-0 order-1 md:order-2">
+                                <div class="w-16 h-16 bg-icbc-gold text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                                    5
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 hidden md:block order-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 等级权益展示 -->
+            <div class="mb-16">
+                <h2 class="text-2xl font-bold text-icbc-gray mb-8 text-center">等级权益展示</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white rounded-xl shadow-md">
+                        <thead>
+                            <tr class="bg-primary text-white">
+                                <th class="py-4 px-6 text-left">权益类型</th>
+                                <th class="py-4 px-6 text-center">健康实习生<br>Lv.1</th>
+                                <th class="py-4 px-6 text-center">健康分析师<br>Lv.2</th>
+                                <th class="py-4 px-6 text-center">健康合伙人<br>Lv.3</th>
+                                <th class="py-4 px-6 text-center">健康总监<br>Lv.4</th>
+                                <th class="py-4 px-6 text-center">健康独角兽<br>Lv.5</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-icbc-light-gray">
+                                <td class="py-4 px-6 font-medium text-icbc-gray">信用卡积分倍数</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 1x</td>
+                                <td class="py-4 px-6 text-center bg-primary/5"><i class="fa fa-check text-green-600"></i> 1.5x</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 2x</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 3x</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 5x</td>
+                            </tr>
+                            <tr class="border-b border-icbc-light-gray">
+                                <td class="py-4 px-6 font-medium text-icbc-gray">贷款优惠利率</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-times text-red-600"></i></td>
+                                <td class="py-4 px-6 text-center bg-primary/5"><i class="fa fa-check text-green-600"></i> -0.5%</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> -1%</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> -1.5%</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> -2%</td>
+                            </tr>
+                            <tr class="border-b border-icbc-light-gray">
+                                <td class="py-4 px-6 font-medium text-icbc-gray">专属理财产品</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-times text-red-600"></i></td>
+                                <td class="py-4 px-6 text-center bg-primary/5"><i class="fa fa-check text-green-600"></i> 1款</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 3款</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 5款</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 全部</td>
+                            </tr>
+                            <tr class="border-b border-icbc-light-gray">
+                                <td class="py-4 px-6 font-medium text-icbc-gray">免费体检次数/年</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 1次</td>
+                                <td class="py-4 px-6 text-center bg-primary/5"><i class="fa fa-check text-green-600"></i> 2次</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 3次</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 4次</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 6次</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-6 font-medium text-icbc-gray">专属客服</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-times text-red-600"></i></td>
+                                <td class="py-4 px-6 text-center bg-primary/5"><i class="fa fa-times text-red-600"></i></td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 工作日</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 7x12小时</td>
+                                <td class="py-4 px-6 text-center"><i class="fa fa-check text-green-600"></i> 7x24小时</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 社群排行榜 -->
+            <div>
+                <h2 class="text-2xl font-bold text-icbc-gray mb-8 text-center">健康投资人排行榜</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 总榜 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="bg-primary text-white p-4">
+                            <h3 class="text-lg font-bold">总排行榜</h3>
+                        </div>
+                        <div class="p-4">
+                            <ul class="space-y-4">
+                                <!-- 第一名 -->
+                                <li class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                                    <div class="w-10 h-10 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        1
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=41" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">李明</h4>
+                                        <p class="text-sm text-icbc-gray">健康独角兽</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">98,765</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第二名 -->
+                                <li class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                    <div class="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        2
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=42" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">王华</h4>
+                                        <p class="text-sm text-icbc-gray">健康总监</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">87,654</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第三名 -->
+                                <li class="flex items-center p-3 bg-amber-50 rounded-lg">
+                                    <div class="w-10 h-10 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        3
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=43" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">张伟</h4>
+                                        <p class="text-sm text-icbc-gray">健康总监</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">76,543</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第四名 -->
+                                <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-custom">
+                                    <div class="w-10 h-10 bg-gray-200 text-icbc-gray rounded-full flex items-center justify-center font-bold mr-4">
+                                        4
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=44" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">刘洋</h4>
+                                        <p class="text-sm text-icbc-gray">健康合伙人</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">65,432</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第五名 -->
+                                <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-custom">
+                                    <div class="w-10 h-10 bg-gray-200 text-icbc-gray rounded-full flex items-center justify-center font-bold mr-4">
+                                        5
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=45" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">陈静</h4>
+                                        <p class="text-sm text-icbc-gray">健康合伙人</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">54,321</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 当前用户 -->
+                                <li class="flex items-center p-3 bg-primary/10 rounded-lg">
+                                    <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        42
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=30" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-primary">我</h4>
+                                        <p class="text-sm text-icbc-gray">健康分析师</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">25,680</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- 月度榜 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="bg-primary text-white p-4">
+                            <h3 class="text-lg font-bold">月度排行榜</h3>
+                        </div>
+                        <div class="p-4">
+                            <ul class="space-y-4">
+                                <!-- 第一名 -->
+                                <li class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                                    <div class="w-10 h-10 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        1
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=51" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">赵强</h4>
+                                        <p class="text-sm text-icbc-gray">健康合伙人</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">12,345</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第二名 -->
+                                <li class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                    <div class="w-10 h-10 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        2
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=52" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">孙丽</h4>
+                                        <p class="text-sm text-icbc-gray">健康分析师</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">11,234</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第三名 -->
+                                <li class="flex items-center p-3 bg-amber-50 rounded-lg">
+                                    <div class="w-10 h-10 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        3
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=53" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">周健</h4>
+                                        <p class="text-sm text-icbc-gray">健康总监</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">10,123</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第四名 -->
+                                <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-custom">
+                                    <div class="w-10 h-10 bg-gray-200 text-icbc-gray rounded-full flex items-center justify-center font-bold mr-4">
+                                        4
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=54" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">吴敏</h4>
+                                        <p class="text-sm text-icbc-gray">健康合伙人</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">9,012</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 第五名 -->
+                                <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-custom">
+                                    <div class="w-10 h-10 bg-gray-200 text-icbc-gray rounded-full flex items-center justify-center font-bold mr-4">
+                                        5
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=55" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-icbc-gray">郑华</h4>
+                                        <p class="text-sm text-icbc-gray">健康分析师</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">7,890</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                                <!-- 当前用户 -->
+                                <li class="flex items-center p-3 bg-primary/10 rounded-lg">
+                                    <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">
+                                        18
+                                    </div>
+                                    <img src="https://picsum.photos/50/50?random=30" alt="用户头像" class="w-10 h-10 rounded-full mr-4">
+                                    <div class="flex-grow">
+                                        <h4 class="font-bold text-primary">我</h4>
+                                        <p class="text-sm text-icbc-gray">健康分析师</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">5,678</p>
+                                        <p class="text-sm text-icbc-gray">活力币</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white/80 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30' fill='none'%3E%3Crect width='100' height='30' fill='%23D72B2B'/%3E%3Ctext x='10' y='20' font-family='Arial' font-size='14' font-weight='bold' fill='white'%3E中国工商银行%3C/text%3E%3C/svg%3E" alt="工商银行logo" class="h-8 bg-white p-1 rounded">
+                        <h3 class="text-xl font-bold text-white">工e健康资产</h3>
+                    </div>
+                    <p class="mb-6">整合健康与金融，为您打造全方位的健康财富管理平台。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white/80 hover:text-white"><i class="fa fa-weibo"></i></a>
+                        <a href="#" class="text-white/80 hover:text-white"><i class="fa fa-wechat"></i></a>
+                        <a href="#" class="text-white/80 hover:text-white"><i class="fa fa-qq"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="hover:text-white">首页</a></li>
+                        <li><a href="health_balance.html" class="hover:text-white">健康资产负债表</a></li>
+                        <li><a href="game_pool.html" class="hover:text-white">游戏矿池</a></li>
+                        <li><a href="career.html" class="hover:text-white">投资人职业生涯</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">帮助中心</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-white">常见问题</a></li>
+                        <li><a href="#" class="hover:text-white">使用教程</a></li>
+                        <li><a href="#" class="hover:text-white">联系我们</a></li>
+                        <li><a href="#" class="hover:text-white">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">联系我们</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-phone mt-1 mr-3"></i>
+                            <span>400-8888-8888</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope mt-1 mr-3"></i>
+                            <span>service@icbc.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker mt-1 mr-3"></i>
+                            <span>北京市西城区复兴门内大街55号</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-8 text-center">
+                <p>© 2023 中国工商银行股份有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.querySelector('.fa-bars').parentElement;
+        const closeBtn = document.querySelector('#close-menu');
+        const mobileMenu = document.querySelector('#mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+    </script>
+</body>
+</html>
